@@ -52,6 +52,7 @@ namespace jccpp
 		/// </summary>
 		/// <returns></returns>
 		uint16_t RegisterValue();
+
 		uint8_t RegisterValueHighByte();
 		uint8_t RegisterValueLowByte();
 	};
