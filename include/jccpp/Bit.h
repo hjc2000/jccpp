@@ -4,6 +4,9 @@
 
 namespace jccpp
 {
+	/// <summary>
+	///		静态类。提供一些位操作的函数。
+	/// </summary>
 	class Bit
 	{
 	private:

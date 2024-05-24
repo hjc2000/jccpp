@@ -46,6 +46,7 @@ void jc::EndianConverter::ToBigEndian(uint8_t *buffer, int32_t buf_size, int32_t
 {
 	if (std::endian::native == std::endian::big)
 	{
+		// 本机本来就是大端序，不用转换
 		return;
 	}
 
