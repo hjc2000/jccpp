@@ -1,8 +1,8 @@
 #pragma once
 #include<algorithm>
+#include<base/Stream.h>
 #include<cstdint>
 #include<cstring>
-#include<jccpp/stream/Stream.h>
 #include<stdexcept>
 
 namespace jc
@@ -10,7 +10,7 @@ namespace jc
 	/// <summary>
 	///		具有循环缓冲区的流
 	/// </summary>
-	class CircleBufferMemoryStream :public Stream
+	class CircleBufferMemoryStream :public base::Stream
 	{
 	private:
 		uint8_t *_buffer;

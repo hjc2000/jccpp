@@ -8,8 +8,6 @@
 #include<mutex>
 #include<thread>
 
-using std::shared_ptr;
-
 class CancellationTokenSource;
 
 /// <summary>
@@ -54,12 +52,12 @@ class CancellationTokenSource
 {
 private:
 	std::atomic_bool _is_cancellation_request = false;
-	shared_ptr<CancellationToken> _token{ new CancellationToken{} };
+	std::shared_ptr<CancellationToken> _token { new CancellationToken { } };
 	std::mutex _lock;
 
 public:
 	bool IsCancellationRequested();
-	shared_ptr<CancellationToken> Token() const;
+	std::shared_ptr<CancellationToken> Token() const;
 	void Cancel();
 };
 
@@ -70,7 +68,7 @@ public:
 class TaskCanceledException :public std::runtime_error
 {
 public:
-	TaskCanceledException() :runtime_error(__func__) {}
-	TaskCanceledException(const char *msg) :runtime_error(std::string(__func__) + " " + msg) {}
-	TaskCanceledException(std::string msg) :runtime_error(std::string(__func__) + " " + msg) {}
+	TaskCanceledException() :runtime_error(__func__) { }
+	TaskCanceledException(const char *msg) :runtime_error(std::string(__func__) + " " + msg) { }
+	TaskCanceledException(std::string msg) :runtime_error(std::string(__func__) + " " + msg) { }
 };

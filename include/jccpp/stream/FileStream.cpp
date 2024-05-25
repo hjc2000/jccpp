@@ -1,7 +1,8 @@
 #include"FileStream.h"
-#include<fstream>
 
 using namespace std;
+using namespace base;
+using namespace jccpp;
 
 bool FileStream::CanRead()
 {
@@ -20,14 +21,14 @@ bool FileStream::CanSeek()
 
 shared_ptr<FileStream> FileStream::CreateNewAnyway(std::string url)
 {
-	shared_ptr<FileStream> fs{ new FileStream{url} };
+	shared_ptr<FileStream> fs { new FileStream { url } };
 
 	/* 加上 ios_base::trunc，这样打开文件流后，如果原本存在此文件，就会将其截断，
 	* 让其初始长度变成 0，相当于一个新文件。
 	*/
-	fs->_fs = shared_ptr<fstream>{ new fstream{
+	fs->_fs = shared_ptr<std::fstream> { new std::fstream {
 		url,
-		ios_base::out | ios_base::in | ios_base::trunc | ios_base::binary
+		std::ios_base::out | std::ios_base::in | std::ios_base::trunc | std::ios_base::binary
 	} };
 
 	if (fs->_fs->fail())
@@ -54,8 +55,8 @@ shared_ptr<FileStream> FileStream::Open(std::string url)
 		throw std::runtime_error(std::format("{} {} 不是一个文件，而是一个目录", CODE_POS_STR, url));
 	}
 
-	shared_ptr<FileStream> fs{ new FileStream{url} };
-	fs->_fs = shared_ptr<fstream>{ new fstream{
+	shared_ptr<FileStream> fs { new FileStream { url } };
+	fs->_fs = shared_ptr<fstream> { new fstream {
 		url,
 		ios_base::in | ios_base::out | ios_base::binary
 	} };
@@ -84,8 +85,8 @@ shared_ptr<FileStream> FileStream::OpenReadOnly(std::string url)
 		throw std::runtime_error(std::format("{} {} 不是一个文件，而是一个目录", CODE_POS_STR, url));
 	}
 
-	shared_ptr<FileStream> fs{ new FileStream{url} };
-	fs->_fs = shared_ptr<fstream>{ new fstream{
+	shared_ptr<FileStream> fs { new FileStream { url } };
+	fs->_fs = shared_ptr<fstream> { new fstream {
 		url,
 		ios_base::in | ios_base::binary
 	} };

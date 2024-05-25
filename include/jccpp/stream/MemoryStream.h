@@ -1,9 +1,10 @@
 #pragma once
-#include<jccpp/stream/Stream.h>
+#include<base/Stream.h>
+#include<stdexcept>
 
 namespace jc
 {
-	class MemoryStream :public Stream
+	class MemoryStream :public base::Stream
 	{
 	private:
 		int32_t _buffer_size;

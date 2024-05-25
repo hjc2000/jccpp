@@ -9,7 +9,7 @@ namespace jc
 	/// <summary>
 	///		带阻塞功能的环形缓冲区的内存流。
 	/// </summary>
-	class BlockingCircleBufferMemoryStream :public Stream
+	class BlockingCircleBufferMemoryStream :public base::Stream
 	{
 	private:
 		CircleBufferMemoryStream _mstream;

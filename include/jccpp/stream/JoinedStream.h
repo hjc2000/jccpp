@@ -1,21 +1,19 @@
 #pragma once
+#include<base/Stream.h>
 #include<functional>
 #include<jccpp/container/SafeQueue.h>
-#include<jccpp/stream/Stream.h>
 #include<memory>
 
-using std::shared_ptr;
-
-class JoinedStream :public Stream
+class JoinedStream :public base::Stream
 {
 	/// <summary>
 	///		用来统计总共从 Read 函数中读取过多少字节。
 	/// </summary>
 	int64_t _position = 0;
-	SafeQueue<shared_ptr<Stream>> _stream_queue{};
-	shared_ptr<Stream> _current_stream;
+	SafeQueue<std::shared_ptr<base::Stream>> _stream_queue { };
+	std::shared_ptr<base::Stream> _current_stream;
 
-	shared_ptr<Stream> TrtGetStream();
+	std::shared_ptr<base::Stream> TrtGetStream();
 
 public:
 	/// <summary>
@@ -28,7 +26,7 @@ public:
 	///		向本对象中追加流。如果不追加，在队列中所有流都读完后，JoinedStream 也将结束。
 	/// </summary>
 	/// <param name="stream"></param>
-	void AppendStream(shared_ptr<Stream> stream);
+	void AppendStream(std::shared_ptr<base::Stream> stream);
 
 	#pragma region Stream
 	bool CanRead() override;

@@ -5,7 +5,7 @@
 ///		本方法会返回 nullptr。
 /// </summary>
 /// <returns></returns>
-shared_ptr<Stream> JoinedStream::TrtGetStream()
+std::shared_ptr<base::Stream> JoinedStream::TrtGetStream()
 {
 	if (_stream_queue.Count() == 0 && _on_current_stream_end)
 	{
@@ -22,7 +22,7 @@ shared_ptr<Stream> JoinedStream::TrtGetStream()
 	}
 }
 
-void JoinedStream::AppendStream(shared_ptr<Stream> stream)
+void JoinedStream::AppendStream(std::shared_ptr<base::Stream> stream)
 {
 	_stream_queue.Enqueue(stream);
 }
@@ -44,12 +44,12 @@ bool JoinedStream::CanSeek()
 
 int64_t JoinedStream::Length()
 {
-	throw std::runtime_error{ "不支持的操作" };
+	throw std::runtime_error { "不支持的操作" };
 }
 
 void JoinedStream::SetLength(int64_t value)
 {
-	throw std::runtime_error{ "不支持的操作" };
+	throw std::runtime_error { "不支持的操作" };
 }
 
 int32_t JoinedStream::Read(uint8_t *buffer, int32_t offset, int32_t count)
@@ -81,12 +81,12 @@ int32_t JoinedStream::Read(uint8_t *buffer, int32_t offset, int32_t count)
 
 void JoinedStream::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
-	throw std::runtime_error{ "不支持的操作" };
+	throw std::runtime_error { "不支持的操作" };
 }
 
 void JoinedStream::Flush()
 {
-	throw std::runtime_error{ "不支持的操作" };
+	throw std::runtime_error { "不支持的操作" };
 }
 
 void JoinedStream::Close()
@@ -100,5 +100,5 @@ int64_t JoinedStream::Position()
 
 void JoinedStream::SetPosition(int64_t value)
 {
-	throw std::runtime_error{ "不支持的操作" };
+	throw std::runtime_error { "不支持的操作" };
 }
