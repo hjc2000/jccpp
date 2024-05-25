@@ -56,8 +56,8 @@ public:
 		return &WrappedObj();
 	}
 
-	bool operator==(Wrapper<T> const &another) const
+	bool operator==(Wrapper<T> const &o) const
 	{
-		return WrappedObj() == another.WrappedObj();
+		return WrappedObj() == o.WrappedObj();
 	}
 };
