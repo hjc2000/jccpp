@@ -1,11 +1,5 @@
 #pragma once
-#include<iostream>
-using std::cout;
-using std::endl;
-#include<functional>
-using std::function;
 #include<memory>
-using std::shared_ptr;
 
 template <class T>
 class Wrapper
