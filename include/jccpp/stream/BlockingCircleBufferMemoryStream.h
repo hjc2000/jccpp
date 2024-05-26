@@ -1,7 +1,7 @@
 #pragma once
+#include<base/stream/CircleBufferMemoryStream.h>
 #include<condition_variable>
 #include<jccpp/IDisposable.h>
-#include<jccpp/stream/CircleBufferMemoryStream.h>
 #include<mutex>
 
 namespace jc
@@ -12,7 +12,7 @@ namespace jc
 	class BlockingCircleBufferMemoryStream :public base::Stream
 	{
 	private:
-		CircleBufferMemoryStream _mstream;
+		base::CircleBufferMemoryStream _mstream;
 		std::mutex _lock;
 		std::atomic_bool _stream_closed = false;
 
