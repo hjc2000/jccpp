@@ -1,6 +1,6 @@
 #pragma once
 #include<algorithm>
-#include<base/Stream.h>
+#include<base/stream/Stream.h>
 #include<cstdint>
 #include<cstring>
 #include<stdexcept>

@@ -1,5 +1,5 @@
 #pragma once
-#include<base/Stream.h>
+#include<base/stream/Stream.h>
 #include<functional>
 #include<jccpp/container/SafeQueue.h>
 #include<memory>

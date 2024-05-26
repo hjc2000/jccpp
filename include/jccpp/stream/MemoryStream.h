@@ -1,5 +1,5 @@
 #pragma once
-#include<base/Stream.h>
+#include<base/stream/Stream.h>
 #include<stdexcept>
 
 namespace jc
@@ -41,34 +41,31 @@ namespace jc
 			return _buffer;
 		}
 
-		/**
-		 * @brief 获取内部缓冲区大小。这就是本流能够储存的最大的字节数。
-		 * @return
-		*/
+		/// <summary>
+		///		获取内部缓冲区大小。这就是本流能够储存的最大的字节数。
+		/// </summary>
+		/// <returns></returns>
 		int32_t BufferSize() const
 		{
 			return _buffer_size;
 		}
 
-		/**
-		 * @brief 从当前 Position 到 Length，总共有多少个可读字节。
-		 *
-		 * 是 Length - Position，不是 max_size - Position，因为 Length 指向的字节以及后面的字节
-		 * 都是垃圾数据。
-		 *
-		 * @return
-		*/
+		/// <summary>
+		///		从当前 Position 到 Length，总共有多少个可读字节。
+		///		是 Length - Position，不是 max_size - Position，因为 Length 指向的字节以及后面的字节
+		///		都是垃圾数据。
+		/// </summary>
+		/// <returns></returns>
 		int32_t AvaliableToRead() const
 		{
 			return _length - _position;
 		}
 
-		/**
-		 * @brief 从当前的 Position 开始，缓冲区中剩余的可写入空间。
-		 * 不是 Length - Position，而是 max_size - Position。
-		 *
-		 * @return
-		*/
+		/// <summary>
+		///		从当前的 Position 开始，缓冲区中剩余的可写入空间。
+		///		不是 Length - Position，而是 max_size - Position。
+		/// </summary>
+		/// <returns></returns>
 		int32_t AvaliableToWrite() const
 		{
 			return _buffer_size - _position;
@@ -127,11 +124,6 @@ namespace jc
 
 		int64_t Position() override;
 
-		/**
-		 * @brief
-		 * @param value
-		 * @exception ArgumentException：value 大于 Length 属性会抛出异常。
-		*/
 		void SetPosition(int64_t value) override;
 	};
 }
