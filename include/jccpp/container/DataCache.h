@@ -15,6 +15,13 @@ namespace jc
 	template<typename T>
 	class DataChach :public IDisposable
 	{
+	private:
+		std::atomic_bool _disposed = false;
+		int _max_count;
+		std::mutex _lock;
+		Queue<T> _queue;
+		std::condition_variable _can_tack_out;
+
 	public:
 		/// <summary>
 		///		
@@ -41,14 +48,6 @@ namespace jc
 			_disposed = true;
 		}
 
-	private:
-		std::atomic_bool _disposed = false;
-		int _max_count;
-		std::mutex _lock;
-		Queue<T> _queue;
-		std::condition_variable _can_tack_out;
-
-	public:
 		/// <summary>
 		///		将数据放到内部队列的末尾。
 		/// </summary>
@@ -88,6 +87,4 @@ namespace jc
 			return _queue.Dequeue();
 		}
 	};
-
-	using BufferCache = DataChach<std::shared_ptr<uint8_t *>>;
 }
