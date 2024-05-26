@@ -1,9 +1,9 @@
 #pragma once
 #include<atomic>
+#include<base/container/Queue.h>
 #include<condition_variable>
 #include<iostream>
 #include<jccpp/IDisposable.h>
-#include<jccpp/container/Queue.h>
 #include<mutex>
 
 namespace jc
@@ -54,7 +54,7 @@ namespace jc
 		/// </summary>
 		void PushBack(T item)
 		{
-			std::lock_guard l{ _lock };
+			std::lock_guard l { _lock };
 			_queue.Enqueue(item);
 			if (_queue.Count() > _max_count)
 			{
@@ -69,7 +69,7 @@ namespace jc
 		/// <returns></returns>
 		T TackOut()
 		{
-			std::unique_lock l{ _lock };
+			std::unique_lock l { _lock };
 			_can_tack_out.wait(l, [&]()
 			{
 				if (_disposed)
@@ -82,10 +82,12 @@ namespace jc
 
 			if (_disposed)
 			{
-				throw jc::ObjectDisposedException{};
+				throw jc::ObjectDisposedException { };
 			}
 
 			return _queue.Dequeue();
 		}
 	};
+
+	using BufferCache = DataChach<std::shared_ptr<uint8_t *>>;
 }

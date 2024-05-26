@@ -1,14 +1,15 @@
 #pragma once
 #include<atomic>
-#include<jccpp/container/IQueue.h>
+#include<base/container/IQueue.h>
 #include<mutex>
+#include<queue>
 #include<stdexcept>
 
 /// <summary>
 ///		线程安全的队列，加了互斥锁。
 /// </summary>
 template<typename T>
-class SafeQueue :public IQueue<T>
+class SafeQueue :public base::IQueue<T>
 {
 private:
 	std::queue<T> _queue;

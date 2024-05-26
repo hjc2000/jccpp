@@ -1,11 +1,11 @@
 #pragma once
 #include<algorithm>
-#include<jccpp/container/IList.h>
+#include<base/container/IList.h>
 #include<stdexcept>
 #include<vector>
 
 template<typename T>
-class List :public IList<T>
+class List :public base::IList<T>
 {
 private:
 	std::vector<T> _vector;
@@ -52,7 +52,7 @@ public:
 	{
 		if (index < 0 || index > int(_vector.size()))
 		{
-			throw std::out_of_range{ "索引超出范围" };
+			throw std::out_of_range { "索引超出范围" };
 		}
 
 		_vector.insert(_vector.begin() + index, item);
@@ -74,7 +74,7 @@ public:
 	{
 		if (index < 0 || index >= (int)_vector.size())
 		{
-			throw std::out_of_range{ "索引超出范围" };
+			throw std::out_of_range { "索引超出范围" };
 		}
 
 		_vector.erase(_vector.begin() + index);
@@ -110,7 +110,7 @@ public:
 	{
 		if (index < 0 || index >= int(_vector.size()))
 		{
-			throw std::out_of_range{ "索引超出范围" };
+			throw std::out_of_range { "索引超出范围" };
 		}
 
 		return _vector[index];
@@ -120,7 +120,7 @@ public:
 	{
 		if (index < 0 || index >= int(_vector.size()))
 		{
-			throw std::out_of_range{ "索引超出范围" };
+			throw std::out_of_range { "索引超出范围" };
 		}
 
 		return _vector[index];

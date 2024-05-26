@@ -1,10 +1,10 @@
 #pragma once
+#include<base/container/IQueue.h>
 #include<condition_variable>
 #include<iostream>
-#include<jccpp/IDisposable.h>
-#include<jccpp/container/IQueue.h>
 #include<jccpp/container/SafeQueue.h>
 #include<jccpp/define.h>
+#include<jccpp/IDisposable.h>
 #include<mutex>
 
 namespace jc
@@ -17,7 +17,7 @@ namespace jc
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	template<typename T>
-	class HysteresisBlockingQueue :public IQueue<T>, public IDisposable
+	class HysteresisBlockingQueue :public base::IQueue<T>, public IDisposable
 	{
 	private:
 		std::atomic_bool _disposed = false;
@@ -61,7 +61,7 @@ namespace jc
 			using namespace std;
 			if (max == 0)
 			{
-				throw std::invalid_argument{ CODE_POS_STR + std::string{"最大值不能是 0"} };
+				throw std::invalid_argument { CODE_POS_STR + std::string { "最大值不能是 0" } };
 			}
 
 			_max = max;
@@ -110,7 +110,7 @@ namespace jc
 
 			if (_disposed)
 			{
-				throw std::runtime_error{ "此对象已释放，不能再使用" };
+				throw std::runtime_error { "此对象已释放，不能再使用" };
 			}
 
 			_queue_avaliable_cv.wait(l, [&]()
@@ -140,7 +140,7 @@ namespace jc
 
 			if (_disposed)
 			{
-				throw std::runtime_error{ "此对象已释放，不能再使用" };
+				throw std::runtime_error { "此对象已释放，不能再使用" };
 			}
 
 			_queue_avaliable_cv.wait(l, [&]()
@@ -177,12 +177,12 @@ namespace jc
 
 			if (_disposed)
 			{
-				throw std::runtime_error{ "此对象已释放，不能再使用" };
+				throw std::runtime_error { "此对象已释放，不能再使用" };
 			}
 
 			if (_flushed)
 			{
-				throw std::runtime_error{ "队列已冲洗，无法入队。" };
+				throw std::runtime_error { "队列已冲洗，无法入队。" };
 			}
 
 			_queue_consumed_cv.wait(l, [&]()
@@ -210,7 +210,7 @@ namespace jc
 		{
 			if (_disposed)
 			{
-				throw std::runtime_error{ "此对象已释放，不能再使用" };
+				throw std::runtime_error { "此对象已释放，不能再使用" };
 			}
 
 			_queue.Clear();
@@ -227,7 +227,7 @@ namespace jc
 		{
 			if (_disposed)
 			{
-				throw std::runtime_error{ "此对象已释放，不能再使用" };
+				throw std::runtime_error { "此对象已释放，不能再使用" };
 			}
 
 			_flushed = true;
