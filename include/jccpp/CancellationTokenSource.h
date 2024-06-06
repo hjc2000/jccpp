@@ -9,8 +9,10 @@
 #include<iostream>
 #include<map>
 #include<memory>
+
+#if HAS_THREAD
 #include<mutex>
-#include<thread>
+#endif
 
 class CancellationTokenSource;
 
@@ -58,12 +60,7 @@ public:
 class CancellationTokenSource
 {
 private:
-	std::atomic_bool _is_cancellation_request = false;
 	std::shared_ptr<CancellationToken> _token { new CancellationToken { } };
-
-	#if HAS_THREAD
-	std::mutex _lock;
-	#endif
 
 public:
 	bool IsCancellationRequested();

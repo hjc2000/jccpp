@@ -4,9 +4,27 @@ using namespace std;
 
 void CancellationToken::Cancel()
 {
+	/*
+	* 只有取消过一次，即调用本函数一次后，_is_cancellation_request
+	* 才会为 true。
+	* _is_cancellation_request 为 true 表示已经取消过一次了，
+	* 这时候就不要重复取消了
+	*/
+	if (_is_cancellation_request)
+	{
+		// 先检查一次，有机会不竞争锁直接能够返回
+		return;
+	}
+
 	#if HAS_THREAD
 	std::lock_guard l(_lock);
 	#endif
+
+	if (_is_cancellation_request)
+	{
+		// 竞争锁后再次确认
+		return;
+	}
 
 	_is_cancellation_request = true;
 
@@ -45,11 +63,7 @@ void CancellationToken::Unregister(uint64_t id)
 
 bool CancellationTokenSource::IsCancellationRequested()
 {
-	#if HAS_THREAD
-	std::lock_guard l(_lock);
-	#endif
-
-	return _is_cancellation_request;
+	return _token->IsCancellationRequested();
 }
 
 std::shared_ptr<CancellationToken> CancellationTokenSource::Token() const
@@ -59,16 +73,5 @@ std::shared_ptr<CancellationToken> CancellationTokenSource::Token() const
 
 void CancellationTokenSource::Cancel()
 {
-	#if HAS_THREAD
-	std::lock_guard l(_lock);
-	#endif
-
-	// 已经取消过一次了就不要再取消了
-	if (_is_cancellation_request)
-	{
-		return;
-	}
-
-	_is_cancellation_request = true;
 	_token->Cancel();
 }
