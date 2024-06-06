@@ -50,7 +50,11 @@ void CancellationTokenSource::Cancel()
 	std::lock_guard l(_lock);
 
 	// 已经取消过一次了就不要再取消了
-	if (_is_cancellation_request) return;
+	if (_is_cancellation_request)
+	{
+		return;
+	}
+
 	_is_cancellation_request = true;
 	_token->Cancel();
 }
