@@ -1,11 +1,12 @@
 #include"StreamOperator.h"
 
 using namespace jccpp;
+using namespace base;
 
 void jccpp::CopyStream(
 	base::Stream *src_stream,
 	base::Stream *dst_stream,
-	std::shared_ptr<CancellationToken> cancellationToken
+	std::shared_ptr<base::CancellationToken> cancellationToken
 )
 {
 	uint8_t temp_buf[1024 * 4];
@@ -13,7 +14,7 @@ void jccpp::CopyStream(
 	{
 		if (cancellationToken && cancellationToken->IsCancellationRequested())
 		{
-			throw TaskCanceledException();
+			throw base::TaskCanceledException { };
 		}
 
 		int32_t have_read = src_stream->Read(temp_buf, 0, sizeof(temp_buf));
