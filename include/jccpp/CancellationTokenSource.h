@@ -1,4 +1,8 @@
 #pragma once
+#ifndef HAS_THREAD
+#define HAS_THREAD 1
+#endif
+
 #include<atomic>
 #include<chrono>
 #include<functional>
@@ -18,7 +22,10 @@ class CancellationToken
 private:
 	friend class CancellationTokenSource;
 
+	#if HAS_THREAD
 	std::mutex _lock;
+	#endif
+
 	std::atomic_bool _is_cancellation_request = false;
 	std::map<uint64_t, std::function<void(void)>> _delegates;
 
@@ -53,7 +60,10 @@ class CancellationTokenSource
 private:
 	std::atomic_bool _is_cancellation_request = false;
 	std::shared_ptr<CancellationToken> _token { new CancellationToken { } };
+
+	#if HAS_THREAD
 	std::mutex _lock;
+	#endif
 
 public:
 	bool IsCancellationRequested();

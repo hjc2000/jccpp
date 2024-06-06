@@ -4,7 +4,10 @@ using namespace std;
 
 void CancellationToken::Cancel()
 {
+	#if HAS_THREAD
 	std::lock_guard l(_lock);
+	#endif
+
 	_is_cancellation_request = true;
 
 	// 执行列表中的每一个委托
@@ -21,7 +24,10 @@ bool CancellationToken::IsCancellationRequested() const
 
 uint64_t CancellationToken::Register(std::function<void(void)> func)
 {
+	#if HAS_THREAD
 	std::lock_guard l(_lock);
+	#endif
+
 	static uint64_t id = 0;
 	uint64_t current_id = id++;
 	_delegates[current_id] = func;
@@ -30,13 +36,19 @@ uint64_t CancellationToken::Register(std::function<void(void)> func)
 
 void CancellationToken::Unregister(uint64_t id)
 {
+	#if HAS_THREAD
 	std::lock_guard l(_lock);
+	#endif
+
 	_delegates.erase(id);
 }
 
 bool CancellationTokenSource::IsCancellationRequested()
 {
+	#if HAS_THREAD
 	std::lock_guard l(_lock);
+	#endif
+
 	return _is_cancellation_request;
 }
 
@@ -47,7 +59,9 @@ std::shared_ptr<CancellationToken> CancellationTokenSource::Token() const
 
 void CancellationTokenSource::Cancel()
 {
+	#if HAS_THREAD
 	std::lock_guard l(_lock);
+	#endif
 
 	// 已经取消过一次了就不要再取消了
 	if (_is_cancellation_request)
