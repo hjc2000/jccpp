@@ -1,15 +1,15 @@
 #pragma once
-#include<jccpp/ToString.h>
-#include<nlohmann/json.hpp>
-#include<string>
+#include <jccpp/ToString.h>
+#include <nlohmann/json.hpp>
+#include <string>
 
 using Json = nlohmann::json;
 using JsonTypeError = Json::type_error;
 
-class IJsonSerializable :public ICanToString
+class IJsonSerializable : public ICanToString
 {
 public:
-	~IJsonSerializable() {}
+	~IJsonSerializable() = default;
 
 public:
 	std::string ToString() override

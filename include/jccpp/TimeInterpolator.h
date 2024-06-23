@@ -1,11 +1,9 @@
 #pragma once
-#include<jccpp/DateTime.h>
+#include <jccpp/DateTime.h>
 
 namespace jccpp
 {
-	/// <summary>
-	///		时间插值器。
-	/// </summary>
+	/// @brief 时间插值器。
 	class TimeInterpolator
 	{
 	private:
@@ -67,9 +65,10 @@ namespace jccpp
 			_paused = true;
 
 			/* 记录当前的时间差，然后直到取消暂停前，让 DeltaTimeInMilliseconds 方法一直返回
-			* _delta_time_when_pausing_in_milliseconds。
-			*/
-			_delta_time_when_pausing_in_milliseconds = DateTime::GetSteadyTimeInMilliseconds() - _time_at_sync_in_milliseconds;
+			 * _delta_time_when_pausing_in_milliseconds。
+			 */
+			_delta_time_when_pausing_in_milliseconds =
+				DateTime::GetSteadyTimeInMilliseconds() - _time_at_sync_in_milliseconds;
 		}
 	};
 }

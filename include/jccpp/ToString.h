@@ -1,10 +1,10 @@
 #pragma once
-#include<string>
+#include <string>
 
 class ICanToString
 {
 public:
-	virtual ~ICanToString() {}
+	virtual ~ICanToString() = default;
 
 public:
 	virtual std::string ToString() = 0;
