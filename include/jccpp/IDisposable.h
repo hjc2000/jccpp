@@ -3,6 +3,6 @@
 class IDisposable
 {
 public:
-	virtual ~IDisposable() {}
+	virtual ~IDisposable() = default;
 	virtual void Dispose() = 0;
 };
